@@ -9,18 +9,19 @@ interface ThumbnailPreviewProps {
 
 export function ThumbnailPreview({ imageUrl, isLoading }: ThumbnailPreviewProps) {
   return (
-    <div className="flex-1 min-h-0 flex flex-col">
-      <div className="flex-1 min-h-0 rounded-2xl overflow-hidden relative flex items-center justify-center bg-muted/20">
+    <div className="w-full">
+      {/* Fixed aspect ratio container (16:9 = 1344:768) */}
+      <div className="relative w-full rounded-2xl overflow-hidden bg-muted/20" style={{ aspectRatio: '1344 / 768' }}>
         {isLoading ? (
-          <div className="w-full h-full bg-muted animate-shimmer" />
+          <div className="absolute inset-0 bg-muted animate-shimmer" />
         ) : imageUrl ? (
           <img
             src={imageUrl}
             alt="Generated thumbnail"
-            className="max-w-full max-h-full object-contain animate-fade-in"
+            className="absolute inset-0 w-full h-full object-contain animate-fade-in"
           />
         ) : (
-          <div className="w-full h-full border-2 border-dashed border-border/40 rounded-2xl flex items-center justify-center bg-muted/10">
+          <div className="absolute inset-0 border-2 border-dashed border-border/40 rounded-2xl flex items-center justify-center bg-muted/10">
             <div className="text-center p-4">
               <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-muted/50 flex items-center justify-center">
                 <ImageIcon className="h-6 w-6 text-muted-foreground/40" />

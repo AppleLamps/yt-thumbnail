@@ -26,7 +26,7 @@ export function ThumbnailGenerator() {
   } = useThumbnailGenerator();
 
   return (
-    <div className="flex-1 flex flex-col gap-4 min-h-0 py-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+    <div className="flex flex-col gap-4 py-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>
       {/* Error Alert */}
       {error && (
         <Alert variant="destructive" className="rounded-xl shrink-0">
@@ -77,8 +77,8 @@ export function ThumbnailGenerator() {
         </Button>
       </div>
 
-      {/* Thumbnail Preview - Takes remaining space */}
-      <div className="flex-1 min-h-0 flex flex-col gap-3">
+      {/* Thumbnail Preview - Fixed aspect ratio */}
+      <div className="flex flex-col gap-3">
         <ThumbnailPreview
           imageUrl={generatedImage}
           isLoading={isGenerating}
