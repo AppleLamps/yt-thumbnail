@@ -18,18 +18,17 @@ export function GenerateButton({
     <Button
       onClick={onClick}
       disabled={disabled || isGenerating}
-      size="lg"
-      className="w-full py-6 text-lg font-medium rounded-2xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:shadow-none"
+      className="flex-1 h-10 font-medium rounded-xl bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:scale-[1.01] active:scale-[0.99] disabled:hover:scale-100 disabled:shadow-none"
     >
       {isGenerating ? (
         <>
-          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-          Creating your thumbnail...
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Creating...
         </>
       ) : (
         <>
-          <Sparkles className="mr-2 h-5 w-5" />
-          Generate Thumbnail
+          <Sparkles className="mr-2 h-4 w-4" />
+          Generate
         </>
       )}
     </Button>

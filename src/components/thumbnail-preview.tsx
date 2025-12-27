@@ -9,27 +9,23 @@ interface ThumbnailPreviewProps {
 
 export function ThumbnailPreview({ imageUrl, isLoading }: ThumbnailPreviewProps) {
   return (
-    <div className="space-y-3">
-      <h3 className="text-sm font-medium text-muted-foreground">Preview</h3>
-      <div className="aspect-video rounded-2xl overflow-hidden relative">
+    <div className="flex-1 min-h-0 flex flex-col">
+      <div className="flex-1 min-h-0 rounded-2xl overflow-hidden relative flex items-center justify-center bg-muted/20">
         {isLoading ? (
           <div className="w-full h-full bg-muted animate-shimmer" />
         ) : imageUrl ? (
           <img
             src={imageUrl}
             alt="Generated thumbnail"
-            className="w-full h-full object-contain bg-muted/50 animate-fade-in"
+            className="max-w-full max-h-full object-contain animate-fade-in"
           />
         ) : (
-          <div className="w-full h-full border-2 border-dashed border-border/60 rounded-2xl flex items-center justify-center bg-muted/30 hover:bg-muted/50 transition-colors">
-            <div className="text-center p-8">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-muted/80 flex items-center justify-center">
-                <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
+          <div className="w-full h-full border-2 border-dashed border-border/40 rounded-2xl flex items-center justify-center bg-muted/10">
+            <div className="text-center p-4">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-muted/50 flex items-center justify-center">
+                <ImageIcon className="h-6 w-6 text-muted-foreground/40" />
               </div>
-              <p className="text-muted-foreground font-medium">Your masterpiece awaits</p>
-              <p className="text-sm text-muted-foreground/60 mt-1">
-                Describe your vision and hit generate
-              </p>
+              <p className="text-muted-foreground/60 text-sm">Your thumbnail will appear here</p>
             </div>
           </div>
         )}

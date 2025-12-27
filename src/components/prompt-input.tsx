@@ -10,28 +10,20 @@ interface PromptInputProps {
 
 export function PromptInput({ value, onChange, disabled }: PromptInputProps) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium text-muted-foreground">
-          Describe Your Thumbnail
-        </h3>
-        {value.length > 0 && (
-          <span className="text-xs text-muted-foreground/50">
-            {value.length} characters
-          </span>
-        )}
+        <label className="text-xs font-medium text-muted-foreground">
+          Video title or description
+        </label>
       </div>
       <Textarea
-        placeholder="A vibrant gaming thumbnail with bold colors, an excited person, large text saying 'EPIC WIN', dramatic lighting..."
+        placeholder="e.g., 'How to make $10k/month' or describe the exact thumbnail you want..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        rows={4}
-        className="resize-none rounded-xl border-border/60 bg-card/50 focus:bg-card focus:border-primary/30 focus:ring-2 focus:ring-primary/10 transition-all text-base placeholder:text-muted-foreground/40"
+        rows={2}
+        className="resize-none rounded-xl border-border/60 bg-card/50 focus:bg-card focus:border-primary/30 focus:ring-2 focus:ring-primary/10 transition-all text-sm placeholder:text-muted-foreground/40"
       />
-      <p className="text-xs text-muted-foreground/60 italic">
-        Include colors, text, expressions, and mood for best results
-      </p>
     </div>
   );
 }
