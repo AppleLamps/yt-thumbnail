@@ -56,7 +56,7 @@ export function ThumbnailGenerator() {
             disabled={isGenerating}
           />
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-stretch">
             <GenerateButton
               onClick={generateThumbnail}
               isGenerating={isGenerating}
@@ -64,10 +64,9 @@ export function ThumbnailGenerator() {
             />
             <Button
               variant="outline"
-              size="lg"
               onClick={reset}
               disabled={isGenerating}
-              className="px-4 rounded-2xl border-border/60 hover:bg-muted/50 hover:border-primary/30"
+              className="px-5 rounded-2xl border-border/60 hover:bg-muted/50 hover:border-primary/30"
             >
               <RotateCcw className="h-4 w-4" />
             </Button>
