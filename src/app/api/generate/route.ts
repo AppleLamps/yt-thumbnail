@@ -127,7 +127,9 @@ export async function POST(request: NextRequest) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": process.env.SITE_URL || "http://localhost:3000",
+        "HTTP-Referer":
+          process.env.SITE_URL ||
+          (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
         "X-Title": "YouTube Thumbnail Generator",
       },
       body: JSON.stringify(openRouterPayload),

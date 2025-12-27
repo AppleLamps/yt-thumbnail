@@ -113,6 +113,23 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
+## Deploy to Vercel
+
+### One-Click Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/yt-thumbnail&env=OPENROUTER_API_KEY&envDescription=Your%20OpenRouter%20API%20key&envLink=https://openrouter.ai/keys)
+
+### Manual Deploy
+
+1. Push your code to GitHub
+2. Go to [Vercel](https://vercel.com/new)
+3. Import your repository
+4. Add the environment variable:
+   - `OPENROUTER_API_KEY` - Your OpenRouter API key
+5. Deploy
+
+The project includes a `vercel.json` with a 60-second function timeout for the image generation API route.
+
 ## License
 
 MIT
