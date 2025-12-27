@@ -11,6 +11,74 @@ export const maxDuration = 60; // 60 seconds timeout for image generation
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL = "google/gemini-2.5-flash-image";
 
+/**
+ * Enhances user prompts to improve AI understanding of intent.
+ * - Detects if input is a video title/topic vs. specific thumbnail description
+ * - Wraps short prompts in proper thumbnail generation context
+ * - Adds reference image usage instructions when images are provided
+ */
+function enhancePrompt(userPrompt: string, hasReferenceImages: boolean): string {
+  const trimmedPrompt = userPrompt.trim();
+  const wordCount = trimmedPrompt.split(/\s+/).length;
+
+  // Patterns that suggest a video title/topic rather than a thumbnail description
+  const titlePatterns = [
+    /^(how to|why|what|when|where|who|which)/i,
+    /^(top \d+|best|worst|\d+ ways|\d+ tips|\d+ things)/i,
+    /^(my|our|the) /i,
+    /^(review|unboxing|tutorial|guide|explained|vs\.?|versus)/i,
+    /^(day \d+|part \d+|episode \d+)/i,
+  ];
+
+  const looksLikeTitle = titlePatterns.some(pattern => pattern.test(trimmedPrompt));
+  const isShortPrompt = wordCount <= 6;
+
+  // Check if prompt already seems like a detailed description
+  const hasDescriptiveWords = /\b(thumbnail|image|picture|visual|design|create|generate|show|featuring|with|background|color|style)\b/i.test(trimmedPrompt);
+
+  let enhanced = trimmedPrompt;
+
+  // If it looks like a video title or is very short, wrap it in context
+  if ((looksLikeTitle || isShortPrompt) && !hasDescriptiveWords) {
+    enhanced = `Create a compelling YouTube thumbnail for a video titled "${trimmedPrompt}".
+
+The thumbnail should:
+- Instantly communicate what the video is about
+- Be visually striking and scroll-stopping
+- Appeal to viewers interested in this topic
+- Use dramatic composition and professional lighting
+
+Design an ORIGINAL creative concept that captures the essence of this video topic.`;
+  }
+
+  // Add reference image context when images are provided
+  if (hasReferenceImages) {
+    enhanced += `
+
+REFERENCE IMAGES PROVIDED - Analyze and determine intent:
+
+1. If the prompt mentions a person, face, "me", "my", or specific subject from the images:
+   → Extract that subject from the reference image
+   → Place them in a NEW, dynamic YouTube thumbnail composition
+   → Apply professional lighting, enhance expressions, and create visual impact
+   → The subject should look like they belong in a high-quality thumbnail
+
+2. If the prompt is a video topic/title without specific subject instructions:
+   → Use the reference images as STYLE and MOOD inspiration
+   → Create an original thumbnail concept for that topic
+   → Match the aesthetic, color palette, or artistic style from the references
+
+3. If the prompt asks to "turn this into" or "make this a thumbnail":
+   → Transform the provided image into YouTube thumbnail style
+   → Add dramatic lighting, enhanced colors, professional composition
+   → Keep the core subject but make it scroll-stopping and clickable
+
+Always create a thumbnail that would maximize click-through rate on YouTube.`;
+  }
+
+  return enhanced;
+}
+
 const SYSTEM_PROMPT = `# 1. Operational Directive
 
 You are a specialized visual intelligence engine tasked exclusively with generating high-performance YouTube thumbnails.
@@ -87,14 +155,18 @@ export async function POST(request: NextRequest) {
     // Build message content array
     const contentArray: Array<TextContent | ImageContent> = [];
 
-    // Add user prompt
+    // Enhance the prompt based on context
+    const hasReferenceImages = referenceImages && referenceImages.length > 0;
+    const enhancedPrompt = enhancePrompt(prompt, hasReferenceImages);
+
+    // Add enhanced prompt
     contentArray.push({
       type: "text",
-      text: prompt,
+      text: enhancedPrompt,
     });
 
     // Add reference images if provided
-    if (referenceImages && referenceImages.length > 0) {
+    if (hasReferenceImages) {
       for (const imageBase64 of referenceImages) {
         contentArray.push({
           type: "image_url",
