@@ -6,7 +6,7 @@ import { ReferenceImages } from "@/components/reference-images";
 import { GenerateButton } from "@/components/generate-button";
 import { ThumbnailPreview } from "@/components/thumbnail-preview";
 import { DownloadButton } from "@/components/download-button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, RotateCcw } from "lucide-react";
 
@@ -26,24 +26,23 @@ export function ThumbnailGenerator() {
   } = useThumbnailGenerator();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="rounded-xl">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
           <AlertDescription className="flex items-center justify-between">
             <span>{error}</span>
-            <Button variant="ghost" size="sm" onClick={clearError}>
+            <Button variant="ghost" size="sm" onClick={clearError} className="hover:bg-destructive/20">
               Dismiss
             </Button>
           </AlertDescription>
         </Alert>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-10 lg:grid-cols-2">
         {/* Left Column - Inputs */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           <PromptInput
             value={prompt}
             onChange={setPrompt}
@@ -57,20 +56,26 @@ export function ThumbnailGenerator() {
             disabled={isGenerating}
           />
 
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <GenerateButton
               onClick={generateThumbnail}
               isGenerating={isGenerating}
               disabled={!prompt.trim()}
             />
-            <Button variant="outline" onClick={reset} disabled={isGenerating}>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={reset}
+              disabled={isGenerating}
+              className="px-4 rounded-2xl border-border/60 hover:bg-muted/50 hover:border-primary/30"
+            >
               <RotateCcw className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
         {/* Right Column - Preview */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <ThumbnailPreview
             imageUrl={generatedImage}
             isLoading={isGenerating}

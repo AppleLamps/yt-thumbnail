@@ -5,6 +5,9 @@ import type {
   ImageContent,
 } from "@/lib/openrouter";
 
+// Route segment config - increase body size limit for image uploads
+export const maxDuration = 60; // 60 seconds timeout for image generation
+
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL = "google/gemini-2.5-flash-image";
 

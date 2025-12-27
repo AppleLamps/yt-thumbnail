@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Optimize for production
   poweredByHeader: false,
 
-  // API route config for longer timeouts (image generation can take time)
+  // Increase body size limit for image uploads
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb",

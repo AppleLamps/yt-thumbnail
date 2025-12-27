@@ -6,6 +6,7 @@ An AI-powered web application that generates professional, high-CTR YouTube thum
 
 - **AI-Powered Generation** - Uses Gemini 2.5 Flash image model optimized for YouTube thumbnails
 - **Reference Images** - Upload up to 5 reference images to guide the AI's visual style
+- **Automatic Image Compression** - Uploaded images are resized and compressed client-side to ensure fast uploads
 - **CTR-Optimized** - Built-in system prompt designed for maximum click-through rate
 - **16:9 Output** - Generates thumbnails at 1344x768 pixels, perfect for YouTube
 - **Instant Download** - Download generated thumbnails as PNG files

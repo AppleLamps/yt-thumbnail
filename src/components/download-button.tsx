@@ -25,7 +25,7 @@ export function DownloadButton({ imageUrl }: DownloadButtonProps) {
       disabled={!imageUrl}
       variant="outline"
       size="lg"
-      className="w-full"
+      className="w-full rounded-xl border-border/60 hover:bg-muted/50 hover:border-primary/30 disabled:opacity-40"
     >
       <Download className="mr-2 h-5 w-5" />
       Download Thumbnail
